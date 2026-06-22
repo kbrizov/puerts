@@ -19,15 +19,14 @@ namespace PUERTS_NAMESPACE
 // identifiers and are intentionally excluded so we never rename a name that did not need it.
 FORCEINLINE bool IsTypeScriptReservedWord(const FString& Identifier)
 {
-    static const TArray<FString> ReservedWords = {TEXT("await"), TEXT("break"), TEXT("case"), TEXT("catch"),
-        TEXT("class"), TEXT("const"), TEXT("continue"), TEXT("debugger"), TEXT("default"), TEXT("delete"), TEXT("do"),
-        TEXT("else"), TEXT("enum"), TEXT("export"), TEXT("extends"), TEXT("false"), TEXT("finally"), TEXT("for"),
-        TEXT("function"), TEXT("if"), TEXT("import"), TEXT("in"), TEXT("instanceof"), TEXT("new"), TEXT("null"),
-        TEXT("return"), TEXT("super"), TEXT("switch"), TEXT("this"), TEXT("throw"), TEXT("true"), TEXT("try"),
-        TEXT("typeof"), TEXT("var"), TEXT("void"), TEXT("while"), TEXT("with"),
+    static const TArray<FString> ReservedWords = {TEXT("await"), TEXT("break"), TEXT("case"), TEXT("catch"), TEXT("class"),
+        TEXT("const"), TEXT("continue"), TEXT("debugger"), TEXT("default"), TEXT("delete"), TEXT("do"), TEXT("else"), TEXT("enum"),
+        TEXT("export"), TEXT("extends"), TEXT("false"), TEXT("finally"), TEXT("for"), TEXT("function"), TEXT("if"), TEXT("import"),
+        TEXT("in"), TEXT("instanceof"), TEXT("new"), TEXT("null"), TEXT("return"), TEXT("super"), TEXT("switch"), TEXT("this"),
+        TEXT("throw"), TEXT("true"), TEXT("try"), TEXT("typeof"), TEXT("var"), TEXT("void"), TEXT("while"), TEXT("with"),
         // future reserved words in strict mode (a .d.ts is parsed in strict mode)
-        TEXT("implements"), TEXT("interface"), TEXT("let"), TEXT("package"), TEXT("private"), TEXT("protected"),
-        TEXT("public"), TEXT("static"), TEXT("yield")};
+        TEXT("implements"), TEXT("interface"), TEXT("let"), TEXT("package"), TEXT("private"), TEXT("protected"), TEXT("public"),
+        TEXT("static"), TEXT("yield")};
 
     return ReservedWords.Contains(Identifier);
 }

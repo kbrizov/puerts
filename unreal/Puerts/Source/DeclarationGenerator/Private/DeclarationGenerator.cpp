@@ -495,10 +495,8 @@ void FTypeScriptDeclarationGenerator::GenTypeScriptDeclaration(bool InGenStruct,
     // non-overwriting directory copy, so a stale/incomplete index.d.ts left in the project could break
     // `import * as UE from 'ue'`. We (re)write it on every generation.
     const FString UEIndexFilePath = FPaths::ProjectDir() / TEXT("Typing/ue/index.d.ts");
-    const FString UEIndexContent = TEXT("/// <reference path=\"puerts.d.ts\" />\n")
-                                   TEXT("/// <reference path=\"ue.d.ts\" />\n")
-                                   TEXT("/// <reference path=\"puerts_decorators.d.ts\" />\n")
-                                   TEXT("/// <reference path=\"ue_bp.d.ts\" />\n");
+    const FString UEIndexContent = TEXT("/// <reference path=\"puerts.d.ts\" />\n") TEXT("/// <reference path=\"ue.d.ts\" />\n")
+        TEXT("/// <reference path=\"puerts_decorators.d.ts\" />\n") TEXT("/// <reference path=\"ue_bp.d.ts\" />\n");
 #ifdef PUERTS_WITH_SOURCE_CONTROL
     PuertsSourceControlUtils::MakeSourceControlFileWritable(UEIndexFilePath);
 #endif
