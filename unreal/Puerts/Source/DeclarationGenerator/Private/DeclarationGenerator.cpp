@@ -81,9 +81,13 @@ bool IsTypeScriptKeyword(const FString& InputString)
 // reserved word as its identifier (e.g. `namespace enum {`, `enum class {`). FilenameToTypeScriptVariableName
 // already escapes such names, so this is a defense-in-depth check: any hit here means the generated .d.ts
 // will not compile and would silently abort the PuertsEditor build. Returns the number of violations found.
+// The pattern is anchored to the start of a line (after `^` or a newline) so that the declaration keyword
+// must be the first token on its line; otherwise the same words occurring in JSDoc prose (e.g. "...the
+// class for given controller", "...include the namespace in a token") would be flagged as false positives.
 static int32 VerifyNoReservedWordIdentifiers(const FString& Content, const FString& FileLabel)
 {
-    const FRegexPattern Pattern(TEXT("\\b(namespace|enum|class|interface)\\s+([A-Za-z_$][A-Za-z0-9_$]*)"));
+    const FRegexPattern Pattern(
+        TEXT("(?:^|\\n)\\s*(?:export\\s+)?(?:declare\\s+)?(namespace|enum|class|interface)\\s+([A-Za-z_$][A-Za-z0-9_$]*)"));
     FRegexMatcher Matcher(Pattern, Content);
     int32 ViolationCount = 0;
     while (Matcher.FindNext())

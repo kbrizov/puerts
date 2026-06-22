@@ -28,7 +28,11 @@ FORCEINLINE bool IsTypeScriptReservedWord(const FString& Identifier)
         TEXT("implements"), TEXT("interface"), TEXT("let"), TEXT("package"), TEXT("private"), TEXT("protected"), TEXT("public"),
         TEXT("static"), TEXT("yield")};
 
-    return ReservedWords.Contains(Identifier);
+    // Case-sensitive match: TypeScript reserved words are lowercase, while UE type names are PascalCase
+    // (Class, Enum, Function, Interface, Package, ...). FString's operator== / TArray::Contains are
+    // case-INsensitive, which would wrongly treat those valid identifiers as reserved and escape/flag them.
+    return ReservedWords.ContainsByPredicate(
+        [&Identifier](const FString& Word) { return Identifier.Equals(Word, ESearchCase::CaseSensitive); });
 }
 
 FORCEINLINE FString FilenameToTypeScriptVariableName(const FString& Filename)
